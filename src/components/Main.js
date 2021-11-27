@@ -6,6 +6,9 @@ import {
     Link
   } from "react-router-dom";
 import Nav from "./Nav";
+import Home from "./Home";
+import Candidates from "./Candidates";
+import Party from "./Party";
 
 function Main(){
     return(
@@ -27,30 +30,6 @@ function Main(){
             </main>
         </Router>
     );
-}
-
-function Home(){
-    return(
-        <div>
-            I'm home!
-        </div>
-    )
-}
-
-function Candidates(){
-    return(
-        <div>
-            I'm candy!
-        </div>
-    )
-}
-
-function Party(){
-    return(
-        <div>
-            I'm party!
-        </div>
-    )
 }
 
 export default Main;

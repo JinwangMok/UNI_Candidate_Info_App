@@ -16,6 +16,7 @@
 
 .show{
     width: 80%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     padding: 1rem;

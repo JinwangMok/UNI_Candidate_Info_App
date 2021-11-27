@@ -3,11 +3,22 @@ import { FaBars, FaSearch, FaChevronLeft } from "react-icons/fa";
 
 function Nav(){
     let [showMenu, setShowMenu] = useState("hide");
-
+    
+    function toggleBtn(){
+        if(showMenu == "hide"){
+            return(
+                <FaBars />
+            );
+        }else{
+            return(
+                <FaChevronLeft />
+            );
+        }
+    }
     return(
         <nav className="Nav">
             <div className="Nav_toggleBtn" onClick={ () => { showMenu=="show"?setShowMenu("hide"):setShowMenu("show") } }>
-                <FaBars />
+                { toggleBtn() }
             </div>
             <div className={ showMenu }>
                 <div className="Nav_search">

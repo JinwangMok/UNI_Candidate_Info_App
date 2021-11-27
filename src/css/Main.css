@@ -4,3 +4,10 @@
     margin-bottom: 3rem;
     box-shadow: 1px 3px 10px gray;
 }
+
+.Contents{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 1rem 3rem 0 3rem;
+}
