@@ -1,3 +1,12 @@
+/*추후 반응형 디자인 필요*/
+.Home{
+    margin-bottom: 2.5rem;
+}
+
+.Home select{
+    padding: 0.2rem 0.1rem;
+}
+
 .Home_logoBtn{
     width: 100%;
     display: flex;
@@ -6,10 +15,40 @@
 }
 
 .Home_logoBtn img{
-    width: 8rem;
-    height: 8rem;
+    width: 10rem;
+    height: 10rem;
+    margin-bottom: 2rem;
 }
 
 .Home_logoBtn img:hover{
     cursor: pointer;
+}
+
+.Home_voteClass{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.Home_voteClass span,
+.Home_regions span{
+    font-size: 1.8rem;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.Home_voteClass select,
+.Home_regions select{
+    width: 18rem;
+}
+
+.Home_regions{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Home_region1{
+    margin-bottom: 1.5rem;
 }
