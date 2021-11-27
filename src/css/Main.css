@@ -1,5 +1,6 @@
 .Main{
+    display: flex;
     width: 60%;
-    padding: 20px;
+    margin-bottom: 3rem;
     box-shadow: 1px 3px 10px gray;
 }

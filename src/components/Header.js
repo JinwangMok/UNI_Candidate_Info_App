@@ -2,9 +2,9 @@ import React from "react";
 
 function Header(){
     return(
-        <div className="Header">
+        <header className="Header">
             소중한표(.png)
-        </div>
+        </header>
     );
 }
 

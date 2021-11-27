@@ -2,9 +2,9 @@ import React from "react";
 
 function Footer(){
     return(
-        <div className="Footer">
+        <footer className="Footer">
             ©2021.TeamWM.All rights reserved.
-        </div>
+        </footer>
     );
 }
 

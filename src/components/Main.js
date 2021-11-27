@@ -5,22 +5,26 @@ import {
     Route,
     Link
   } from "react-router-dom";
+import Nav from "./Nav";
 
 function Main(){
     return(
         <Router>
-            <div className="Main">
-            <Routes>
-                <Route exact path="/" element={<Home />}>
-                </Route>
-                <Route path="/candidates" element={<Candidates />}>
-                    candidates
-                </Route>
-                <Route path="/party" element={<Party />}>
-                    party
-                </Route>
-            </Routes>
-            </div>
+            <main className="Main">
+                <Nav />
+                <section className="Contents">
+                    <Routes>
+                        <Route exact path="/" element={<Home />}>
+                        </Route>
+                        <Route path="/candidates" element={<Candidates />}>
+                            candidates
+                        </Route>
+                        <Route path="/party" element={<Party />}>
+                            party
+                        </Route>
+                    </Routes>
+                </section>
+            </main>
         </Router>
     );
 }
