@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "../img/Home_logo.png"
 import regionData from "../data/regionData.json";
+import axios from "axios";
 
 function Home(){
     const [region1, setRegion1] = useState("");
@@ -15,6 +16,27 @@ function Home(){
             }
         })
     }
+    
+    useEffect(() => {
+        const fetchUsers = async () => {
+          try {
+            // 요청이 시작 할 때에는 error 와 users 를 초기화하고
+            
+            
+            // loading 상태를 true 로 바꿉니다.
+            
+            const response = await axios.get(
+              'http://apis.data.go.kr/9760000/CommonCodeService/getCommonSgCodeList?serviceKey=9HokxV9%2B6g%2Fi1qrzeQ%2BKh5FGdduzfXSOFyjO%2F1QCPdw9LWgzeHsM1uQjYB8B7Y1VZP2v7RoNuq0xQiS%2Bos6HtA%3D%3D'
+            );
+            console.log(response);
+          } catch (e) {
+            
+          }
+          
+        };
+    
+        fetchUsers();
+      }, []);
 
     const changeRegion2OptionHandler = (e) => {
         setRegion2(e.target.value);
