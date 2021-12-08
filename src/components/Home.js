@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import logo from "../img/Home_logo.png"
 import regionData from "../data/regionData.json";
 import sgCodeData from "../data/sgCodeData.json";
 import sgIdData from "../data/sgIdData.json";
+import { FaSearch } from "react-icons/fa";
 //import axios from "axios";
 
 function Home(){
@@ -12,6 +14,7 @@ function Home(){
     const [region2, setRegion2] = useState("");
     const [regions, setRegions] = useState([]);
     const [sgIdList, setSgIdList] = useState([]);
+    const [search, setSearch] = useState("unavailable");
 
     const changeRegion1OptionHandler = (e) =>{
         setRegion1(e.target.value);
@@ -36,7 +39,19 @@ function Home(){
     const changeRegion2OptionHandler = (e) => setRegion2(e.target.value);
 
     const changeSgIdHandler = (e) => setSgId(e.target.value.slice(1, 9));
-    
+
+    useEffect(() => {
+        if(!catergory){
+            setSearch("unavailable");
+        }else if(catergory == "1"){
+            if(sgId) setSearch("available");
+            else setSearch("unavailable");
+        }else{
+            if(sgId && region1 && region2) setSearch("available");
+            else setSearch("unavailable");
+        }
+    }, [catergory, sgId, region1, region2]);
+
     return(
         <section className="Home">
             <div className="Home_logoBtn">
@@ -45,7 +60,7 @@ function Home(){
             <section className="Home_voteClass">
                 <span>선거분류</span>
                 <select onChange={changeSgCategoryHandler}>
-                    <option selected="selected">-</option>
+                    <option selected="selected"></option>
                     {
                         Object.values(sgCodeData).map((value)=>{
                             return(
@@ -59,7 +74,7 @@ function Home(){
             </section>
             <section className="Home_voteId">
                 <select onChange={changeSgIdHandler}>
-                    <option selected="selected">-</option>
+                    <option selected="selected"></option>
                     {
                         sgIdList.map((item)=>{
                             if(item["sgTypecode"] == catergory){
@@ -77,7 +92,7 @@ function Home(){
                 <span>선거구</span>
                 <div className="Home_region1">
                     <select onChange={changeRegion1OptionHandler}>
-                        <option selected="selected">-</option>
+                        <option selected="selected"></option>
                         { 
                             regionData.map((item) =>{
                                 return(
@@ -91,7 +106,7 @@ function Home(){
                 </div>
                 <div className="Home_region2">
                     <select onChange={changeRegion2OptionHandler}>
-                        <option selected="selected">-</option>
+                        <option selected="selected"></option>
                         { regions.map((item) => {
                             return(
                                 <option>
@@ -102,6 +117,11 @@ function Home(){
                     </select>
                 </div>
             </section>
+            <button className={search}>
+                <Link to={search=="available"?"/candidates":"/"}>
+                    <img src={ logo } alt="logo"/>
+                </Link>
+            </button>
         </section>
     )
 }
