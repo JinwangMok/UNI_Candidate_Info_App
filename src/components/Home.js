@@ -2,13 +2,16 @@ import React, { useState, useEffect } from "react";
 import logo from "../img/Home_logo.png"
 import regionData from "../data/regionData.json";
 import sgCodeData from "../data/sgCodeData.json";
+import sgIdData from "../data/sgIdData.json";
 //import axios from "axios";
 
 function Home(){
     const [catergory, setCategory] = useState({});
+    const [sgId, setSgId] = useState("");
     const [region1, setRegion1] = useState("");
     const [region2, setRegion2] = useState("");
     const [regions, setRegions] = useState([]);
+    const [sgIdList, setSgIdList] = useState([]);
 
     const changeRegion1OptionHandler = (e) =>{
         setRegion1(e.target.value);
@@ -18,7 +21,7 @@ function Home(){
             }
         })
     }
-    
+    useEffect(() => setSgIdList(sgIdData["list"].reverse()), [])
     // useEffect(() => {//한번만 호출!
     //     axios({
     //         method : 'get',
@@ -28,13 +31,11 @@ function Home(){
                 
     //         });
     // },[])
-    const changeSgCategoryHandler = (e) => {
-        setCategory(Object.keys(sgCodeData).find(key=>sgCodeData[key]==e.target.value));
-    };
+    const changeSgCategoryHandler = (e) => setCategory(Object.keys(sgCodeData).find(key=>sgCodeData[key]==e.target.value));
 
-    const changeRegion2OptionHandler = (e) => {
-        setRegion2(e.target.value);
-    }
+    const changeRegion2OptionHandler = (e) => setRegion2(e.target.value);
+
+    const changeSgIdHandler = (e) => setSgId(e.target.value.slice(1, 9));
     
     return(
         <section className="Home">
@@ -52,6 +53,22 @@ function Home(){
                                     {value}
                                 </option>
                             )
+                        })
+                    }
+                </select>
+            </section>
+            <section className="Home_voteId">
+                <select onChange={changeSgIdHandler}>
+                    <option selected="selected">-</option>
+                    {
+                        sgIdList.map((item)=>{
+                            if(item["sgTypecode"] == catergory){
+                                return(
+                                    <option>
+                                        [{item["sgVotedate"]}] {item["sgName"]}
+                                    </option>
+                                )
+                            }
                         })
                     }
                 </select>
