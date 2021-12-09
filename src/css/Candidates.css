@@ -63,24 +63,56 @@
     align-items: center;
 }
 
-.Candidates_list li{
+.Candidates_list a{
     width: 100%;
-    border: 1px solid black;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 2rem;
+    display: flex;  
+    justify-content: space-between; 
 }
 
+.Candidates_list li{ 
+    width: 100%;
+    border-radius: 1rem 0 2rem 1rem;
+    margin-bottom: 2rem;
+    transition: 0.3s ease;
+}
+
+.Candidates_list li:hover{
+    transform: scale(1.02);
+}
 .Candidates_list_name{
+    display: flex;
+    flex-direction: column;
+    padding-left: 2rem;
+    padding-right: 10rem;
+    background: linear-gradient(to left, rgba(255,255,255,0),rgba(255,255,255,0.3));
+    border-radius: 0.4rem 0.4rem 1rem 0.4rem;
+}
+
+.Candidates_list_name h5 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.Candidates_list_name h3 {
+    width: 100%;
+    padding-left: 0.2rem;
+    padding-right: 1rem;
+    margin-top: 0rem;
     margin-left: 1rem;
+    font-size: 1.9rem;
 }
 
 .Candidates_list_info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
     margin-right: 2rem;
     text-align: right;
 }
 
 .Candidates_list_info h4{
+    font-size: 1.4rem;
     width: 100%;
     display: flex;
     justify-content: left;

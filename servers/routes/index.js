@@ -24,8 +24,14 @@ router.post('/sgCandidate', (req, res)=>{
         useApiAxios(url)
         .then(data => {
             xml2js.parseString(data, (err, result)=>{
-                let resultCode = result.response.header[0].resultCode[0]
-                let items = result.response.body[0].items[0].item;
+                let resultCode = "";
+                let items = "";
+                try{
+                    resultCode = result.response.header[0].resultCode[0]
+                    items = result.response.body[0].items[0].item;
+                }catch{
+                    resultCode = "";
+                }
                 
                 console.log(items);
                 
@@ -41,7 +47,12 @@ router.post('/sgCandidate', (req, res)=>{
         useApiAxios(url)
         .then(data => {
             xml2js.parseString(data, (err, result)=>{
-                let resultCode = result.response.header[0].resultCode[0]
+                let resultCode = "";
+                try{
+                    resultCode = result.response.header[0].resultCode[0]
+                }catch{
+                    resultCode = "";
+                }
                         
                 if(resultCode !== "INFO-00"){
                     res.send({ error : resultCode });

@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../img/Home_logo.png"
 import { FaLocationArrow } from "react-icons/fa";
+import jdColorCode from "../data/jdColorCode.json";
 //import axios from "axios";
 
 function Candidates(props){
@@ -56,25 +57,22 @@ function Candidates(props){
                     props.huboList.map((item)=>{
                         if(item.status[0] != '사퇴'){
                             return(
-                                <li key={item.huboid[0]}>
-                                    <div className="Candidates_list_name">
-                                        <h5>
-                                            {"기호 " + item.giho[0] + "번"}
-                                        </h5>
-                                        <h3>
-                                            {item.name[0]}
-                                        </h3>
-                                    </div>
-                                    <div className="Candidates_list_info">
-                                        <h4>
-                                            {item.jdName[0]}
-                                        </h4>
-                                        <span>
-                                            <Link to="/candidate">
-                                                자세히보기
-                                            </Link>
-                                        </span>
-                                    </div>
+                                <li key={item.huboid[0]} style={jdColorCode[item.jdName]?{backgroundColor : jdColorCode[item.jdName]}:{backgroundColor :"gray"}}>
+                                    <Link to="/candidate">
+                                        <div className="Candidates_list_name">
+                                            <h5>
+                                                {"기호 " + item.giho[0] + "번"}
+                                            </h5>
+                                            <h3>
+                                                {item.name[0]}
+                                            </h3>
+                                        </div>
+                                        <div className="Candidates_list_info">
+                                            <h4>
+                                                {item.jdName[0]}
+                                            </h4>
+                                        </div>
+                                    </Link>
                                 </li>
                             )
                         }
