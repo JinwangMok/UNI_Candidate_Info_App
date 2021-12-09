@@ -29,11 +29,15 @@ function Home(props){
     const changeRegion2OptionHandler = (e) => props.setRegion2(e.target.value);
 
     const changeSgIdHandler = (e) => {//sgId가 결정되어야 선거구를 찾을 수 있음.
-        props.setSgId(e.target.value);
+        props.setSgId(e.target.value.slice(1, 9));
         let pBody = {
             sgType : props.sgType,
-            sgId : e.target.value
+            sgId : e.target.value.slice(1, 9)
         }
+        props.setSgName(e.target.value.slice(11));
+        console.log(e.target.value.slice(1, 9))
+        console.log(e.target.value.slice(11));
+        
         axios.post('/api/getSdName', pBody)
             .then(response=>{
                 props.setSdNames(response.data);
@@ -79,7 +83,7 @@ function Home(props){
                         props.sgIdList.map((item)=>{
                             if(item["sgTypecode"] == props.sgType){
                                 return(
-                                    <option value={item["sgVotedate"]}>
+                                    <option>
                                         [{item["sgVotedate"]}] {item["sgName"]}
                                     </option>
                                 )

@@ -5,8 +5,11 @@
 
 .Nav_toggleBtn{
     position: absolute;
-    padding-top: 1rem;
-    padding-left: 1rem;
+    padding-top: 2rem;
+    padding-left: 2rem;
+}
+.Nav_toggleBtn svg {
+    font-size: 1.5rem;
 }
 
 .Nav_toggleBtn:hover,
@@ -19,9 +22,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    padding: 1rem;
-    padding-top: 2.5rem;
-    margin-right: 1rem;
+    padding: 5.5rem 2rem 1rem 2.2rem;
     box-shadow: 5px 0px 10px gray;
 }
 
@@ -47,8 +48,4 @@
 
 .Nav_lists span{
     font-size: 0.8rem;
-}
-
-.Nav_lists ul{
-    list-style-type: none;
 }

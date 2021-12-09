@@ -1,0 +1,87 @@
+.Candidates{
+    width: 100%;
+    margin-left: 3rem;
+}
+.Candidates header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.Candidates_mainHeader{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Candidates_mainHeader h2{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.Candidates_mainHeader a{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.Candidates_mainHeader a span{
+    font-size: 0.7rem;
+}
+
+.Candidates_mainHeader img{
+    width: 2rem;
+    margin-bottom: 0.3rem;
+}
+
+.Candidates_subHeader{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.Candidates_subHeader div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: gray;
+}
+
+.Candidates_subHeader div h4 {
+    margin-left: 1rem;
+}
+
+.Candidates_list{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.Candidates_list li{
+    width: 100%;
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.Candidates_list_name{
+    margin-left: 1rem;
+}
+
+.Candidates_list_info{
+    margin-right: 2rem;
+    text-align: right;
+}
+
+.Candidates_list_info h4{
+    width: 100%;
+    display: flex;
+    justify-content: left;
+}

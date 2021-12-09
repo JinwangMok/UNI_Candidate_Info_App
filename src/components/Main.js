@@ -7,10 +7,12 @@ import {
 import Nav from "./Nav";
 import Home from "./Home";
 import Candidates from "./Candidates";
+import Candidate from "./Candidate";
 import Party from "./Party";
 
 function Main(){
     const [sgType, setSgType] = useState({});
+    const [sgName, setSgName] = useState("");
     const [sgId, setSgId] = useState("");
     const [region1, setRegion1] = useState("");
     const [region2, setRegion2] = useState("");
@@ -18,6 +20,8 @@ function Main(){
     const [sggNames, setSggNames] = useState([]);
     const [sgIdList, setSgIdList] = useState([]);
     const [search, setSearch] = useState("unavailable");
+    const [huboList, setHuboList] = useState([]);
+    const [huboId, setHuboId] = useState("")
 
     // useEffect(()=>{
 
@@ -26,6 +30,8 @@ function Main(){
     let props = {
         sgType : sgType,
         setSgType : setSgType,
+        sgName : sgName,
+        setSgName : setSgName,
         sgId : sgId,
         setSgId : setSgId,
         region1 : region1,
@@ -39,7 +45,11 @@ function Main(){
         sgIdList : sgIdList,
         setSgIdList : setSgIdList,
         search : search,
-        setSearch : setSearch
+        setSearch : setSearch,
+        huboList : huboList,
+        setHuboList : setHuboList,
+        huboId : huboId,
+        setHuboId : setHuboId
     }
 
     return(
@@ -48,14 +58,10 @@ function Main(){
                 <Nav />
                 <section className="Contents">
                     <Routes>
-                        <Route exact path="/" element={<Home {...props}/>}>
-                        </Route>
-                        <Route path="/candidates" element={<Candidates {...props}/>}>
-                            candidates
-                        </Route>
-                        <Route path="/party" element={<Party />}>
-                            party
-                        </Route>
+                        <Route exact path="/" element={<Home {...props}/>} />
+                        <Route path="/candidates" element={<Candidates {...props}/>} />
+                        <Route path="/candidate" element={<Candidate {...props}/>} />
+                        <Route path="/party" element={<Party />} />
                     </Routes>
                 </section>
             </main>
