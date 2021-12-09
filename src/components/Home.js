@@ -1,56 +1,56 @@
-import React, { useState, useEffect } from "react";
+//추후 css 로 sdName, sggName이 로딩된 후에 선택박스가 나타나도록 수정해서 UX 개선시키자.
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../img/Home_logo.png"
-import regionData from "../data/regionData.json";
 import sgCodeData from "../data/sgCodeData.json";
 import sgIdData from "../data/sgIdData.json";
-import { FaSearch } from "react-icons/fa";
-//import axios from "axios";
+import axios from "axios";
 
-function Home(){
-    const [catergory, setCategory] = useState({});
-    const [sgId, setSgId] = useState("");
-    const [region1, setRegion1] = useState("");
-    const [region2, setRegion2] = useState("");
-    const [regions, setRegions] = useState([]);
-    const [sgIdList, setSgIdList] = useState([]);
-    const [search, setSearch] = useState("unavailable");
+
+function Home(props){
 
     const changeRegion1OptionHandler = (e) =>{
-        setRegion1(e.target.value);
-        regionData.map((item) => {
-            if(Object.keys(item)[0] == e.target.value){
-                setRegions(...Object.values(item));
-            }
-        })
+        props.setRegion1(e.target.value);
+        let pBody = {
+            sgType : props.sgType,
+            sgId : props.sgId,
+            sdName : e.target.value
+        }
+        axios.post('/api/getSggName', pBody)
+            .then(response=>{
+                props.setSggNames(response.data);
+                console.log(response.data);
+        });
     }
-    useEffect(() => setSgIdList(sgIdData["list"].reverse()), [])
-    // useEffect(() => {//한번만 호출!
-    //     axios({
-    //         method : 'get',
-    //         url : 'api/sgCode'
-    //     }).then(res => setCategories(JSON.parse(res.data)))
-    //         .then(()=>{
-                
-    //         });
-    // },[])
-    const changeSgCategoryHandler = (e) => setCategory(Object.keys(sgCodeData).find(key=>sgCodeData[key]==e.target.value));
+    useEffect(() => props.setSgIdList(sgIdData["list"].reverse()), []);
+    
+    const changeSgTypeHandler = (e) => props.setSgType(Object.keys(sgCodeData).find(key=>sgCodeData[key]==e.target.value));
 
-    const changeRegion2OptionHandler = (e) => setRegion2(e.target.value);
+    const changeRegion2OptionHandler = (e) => props.setRegion2(e.target.value);
 
-    const changeSgIdHandler = (e) => setSgId(e.target.value.slice(1, 9));
+    const changeSgIdHandler = (e) => {//sgId가 결정되어야 선거구를 찾을 수 있음.
+        props.setSgId(e.target.value);
+        let pBody = {
+            sgType : props.sgType,
+            sgId : e.target.value
+        }
+        axios.post('/api/getSdName', pBody)
+            .then(response=>{
+                props.setSdNames(response.data);
+            });
+    }
 
     useEffect(() => {
-        if(!catergory){
-            setSearch("unavailable");
-        }else if(catergory == "1"){
-            if(sgId) setSearch("available");
-            else setSearch("unavailable");
+        if(!props.sgType){
+            props.setSearch("unavailable");
+        }else if(props.sgType == "1"){
+            if(props.sgId) props.setSearch("available");
+            else props.setSearch("unavailable");
         }else{
-            if(sgId && region1 && region2) setSearch("available");
-            else setSearch("unavailable");
+            if(props.sgId && props.region1 && props.region2) props.setSearch("available");
+            else props.setSearch("unavailable");
         }
-    }, [catergory, sgId, region1, region2]);
+    }, [props.sgType, props.sgId, props.region1, props.region2]);
 
     return(
         <section className="Home">
@@ -59,7 +59,7 @@ function Home(){
             </div>
             <section className="Home_voteClass">
                 <span>선거분류</span>
-                <select onChange={changeSgCategoryHandler}>
+                <select onChange={changeSgTypeHandler}>
                     <option selected="selected"></option>
                     {
                         Object.values(sgCodeData).map((value)=>{
@@ -76,10 +76,10 @@ function Home(){
                 <select onChange={changeSgIdHandler}>
                     <option selected="selected"></option>
                     {
-                        sgIdList.map((item)=>{
-                            if(item["sgTypecode"] == catergory){
+                        props.sgIdList.map((item)=>{
+                            if(item["sgTypecode"] == props.sgType){
                                 return(
-                                    <option>
+                                    <option value={item["sgVotedate"]}>
                                         [{item["sgVotedate"]}] {item["sgName"]}
                                     </option>
                                 )
@@ -94,10 +94,10 @@ function Home(){
                     <select onChange={changeRegion1OptionHandler}>
                         <option selected="selected"></option>
                         { 
-                            regionData.map((item) =>{
+                            props.sdNames.map((item) =>{
                                 return(
-                                    <option>
-                                        {Object.keys(item)[0]}
+                                    <option value={ item }>
+                                        { item }
                                     </option>
                                 )
                             }) 
@@ -107,9 +107,9 @@ function Home(){
                 <div className="Home_region2">
                     <select onChange={changeRegion2OptionHandler}>
                         <option selected="selected"></option>
-                        { regions.map((item) => {
+                        { props.sggNames.map((item) => {
                             return(
-                                <option>
+                                <option value={ item }>
                                     { item }
                                 </option>
                             )
@@ -117,8 +117,8 @@ function Home(){
                     </select>
                 </div>
             </section>
-            <button className={search}>
-                <Link to={search=="available"?"/candidates":"/"}>
+            <button className={props.search}>
+                <Link to={"/candidates"}>
                     <img src={ logo } alt="logo"/>
                 </Link>
             </button>
