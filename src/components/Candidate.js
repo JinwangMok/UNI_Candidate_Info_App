@@ -165,6 +165,7 @@ function Candidate(props){
                     </ul>
                 </section>
                 <hr />
+                <Candidate_JundangInfo {...props}/>
                 <section className="Candidate_huboArticle">
                     <ul>
                         <h3>[후보자 관련 기사]</h3>
@@ -183,7 +184,7 @@ function Candidate(props){
                         <p>...from. Goole News📰</p>
                     </ul>
                 </section>
-                <Candidate_JundangInfo {...props}/>
+                <hr />
             </section>
         )
     }

@@ -30,6 +30,9 @@
 }
 
 .Candidate_mainHeader h2 + p{
+    width: 100%;
+    display: flex;
+    justify-content: center;
     margin-top: 0.5rem;
     letter-spacing: 0.8rem;
 }

@@ -18,6 +18,39 @@ router.get('/jdinfo/:sgId/:jdName', (req, res) => {
     let URL = `http://apis.data.go.kr/9760000/PartyPlcInfoInqireService/getPartyPlcInfoInqire?serviceKey=9HokxV9%2B6g%2Fi1qrzeQ%2BKh5FGdduzfXSOFyjO%2F1QCPdw9LWgzeHsM1uQjYB8B7Y1VZP2v7RoNuq0xQiS%2Bos6HtA%3D%3D&pageNo=1&numOfRows=100&sgId=${req.params.sgId}&partyName=${encodeURI(req.params.jdName)}`;
 
     console.log(URL);
+
+    useXmlApiAxios(URL)
+    .then(data => {
+        xml2js.parseString(data, (err, result)=>{
+            if(err){
+                console.log(err);
+            }
+
+            if("response" in result){
+                let forSend = [];
+                let preSend = result.response.body[0].items[0].item[0];
+                let count = parseInt(preSend.prmsCnt[0]);
+
+                for(let i = 1; i <= count; i++){
+                    forSend.push({
+                        "realm" : preSend[`prmsRealmName${i}`][0],
+                        "title" : preSend[`prmsTitle${i}`][0],
+                        "cont" : preSend[`prmmCont${i}`][0]
+                    })
+                }
+
+                res.send(forSend);
+            }else{
+                res.send({"Error" : true});
+            }
+        })
+    })
+    .catch(err => {
+        console.log(err);
+    })
+    .finally(()=>{
+        console.log("정당정보 요청 끝!")
+    })
 })
 
 router.get('/rss/:name', (req, res) => {

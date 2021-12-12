@@ -24,6 +24,7 @@ function Main(){
     const [huboInfos, setHuboInfos] = useState({});
     const [huboPromises, setHuboPromises] = useState([]);
     const [huboNewsData, setHuboNewsData] = useState({});
+    const [jundangInfo, setJundangInfo] = useState([]);
 
     let props = {
         sgType : sgType,
@@ -53,7 +54,9 @@ function Main(){
         huboPromises : huboPromises,
         setHuboPromises : setHuboPromises,
         huboNewsData : huboNewsData,
-        setHuboNewsData : setHuboNewsData
+        setHuboNewsData : setHuboNewsData,
+        jundangInfo : jundangInfo,
+        setJundangInfo : setJundangInfo
     }
 
     return(

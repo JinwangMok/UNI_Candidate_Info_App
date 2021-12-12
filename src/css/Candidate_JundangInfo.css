@@ -1,0 +1,48 @@
+.Candidate_JundangInfo{
+    width: 100%;
+}
+
+.Candidate_JundangInfo ul > h3{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.Candidate_JundangInfo ul li{
+    width: 100%;
+    margin-bottom: 0.4rem;
+}
+
+.Candidate_JundangInfo > div{
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    margin-top: 2rem;
+}
+
+.Candidate_JundangInfo_showBtn > button{
+    padding: 0.8rem 1rem;
+    border-radius: 1rem;
+    transition: 0.5s ease;
+}
+
+.Candidate_JundangInfo_showBtn > button:hover{
+    cursor: pointer;
+    background-color: black;
+    color: #FFFFFF;
+}
+
+.Candidate_JundangInfo_showBtn + ul > div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    margin-top: 0;
+    letter-spacing: 0.3rem;
+}
+
+.Candidate_JundangInfo_showBtn + ul > div > div {
+    width: 5rem;
+    border-radius: 1rem;
+}
