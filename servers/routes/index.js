@@ -62,42 +62,37 @@ router.post('/huboPromises', (req, res) => {
 })
 
 
-router.post('/sgCandidate', (req, res)=>{//수정필요----------!
+router.post('/sgCandidate', (req, res)=>{
     console.log(req.body);
 
     let regInfo = ['getPofelcddRegistSttusInfoInqire', 'getPoelpcddRegistSttusInfoInqire']//[0]:후보자, [1]:예비후보자
     let URL = '';
-    if(req.body.sgId == ""){
-        //후보자로 요청
-        URL = `http://apis.data.go.kr/9760000/PofelcddInfoInqireService/${regInfo[0]}?sgId=${req.body.sgId}&sgTypecode=${req.body.sgType}&sdName=${encodeURI(req.body.region1)}&sggName=${encodeURI(req.body.region2)}&pageNo=1&numOfRows=1000&resultType=xml&serviceKey=9HokxV9%2B6g%2Fi1qrzeQ%2BKh5FGdduzfXSOFyjO%2F1QCPdw9LWgzeHsM1uQjYB8B7Y1VZP2v7RoNuq0xQiS%2Bos6HtA%3D%3D`
+    if(req.body.sgId != "" && req.body.sgType != ""){//값이 있다면...
         
-        async function requestHuboList(url){
-            try{
-                await useXmlApiAxios(url)
-                .then(data => {
-                    xml2js.parseString(data, (err, result)=>{
-                        let resultCode = "";
-                        let items = "";
-                        try{
-                            resultCode = result.response.header[0].resultCode[0]
-                            items = result.response.body[0].items[0].item;
-                        }catch{
-                            resultCode = "";
-                        }
-                        
-                        console.log(items);
-                        
-                        res.send(items);
+        URL = `http://apis.data.go.kr/9760000/PofelcddInfoInqireService/${regInfo[0]}?sgId=${req.body.sgId}&sgTypecode=${req.body.sgType}&sdName=${encodeURI(req.body.region1)}&sggName=${encodeURI(req.body.region2)}&pageNo=1&numOfRows=1000&resultType=xml&serviceKey=9HokxV9%2B6g%2Fi1qrzeQ%2BKh5FGdduzfXSOFyjO%2F1QCPdw9LWgzeHsM1uQjYB8B7Y1VZP2v7RoNuq0xQiS%2Bos6HtA%3D%3D`
+        useXmlApiAxios(URL)//후보자로 요청
+        .then(data => {
+            xml2js.parseString(data, (err, result)=>{
+                
+                if("response" in result){
+                    res.send(result.response.body[0].items[0].item);
+
+                }else{
+                    URL = `http://apis.data.go.kr/9760000/PofelcddInfoInqireService/${regInfo[1]}?sgId=${req.body.sgId}&sgTypecode=${req.body.sgType}&sdName=${encodeURI(req.body.region1)}&sggName=${encodeURI(req.body.region2)}&pageNo=1&numOfRows=1000&resultType=xml&serviceKey=9HokxV9%2B6g%2Fi1qrzeQ%2BKh5FGdduzfXSOFyjO%2F1QCPdw9LWgzeHsM1uQjYB8B7Y1VZP2v7RoNuq0xQiS%2Bos6HtA%3D%3D`
+                    useXmlApiAxios(URL)//예비 후보자로 요청
+                    .then(data => {
+                        xml2js.parseString(data, (err, result)=>{
+                            if("response" in result){
+                                res.send(result.response.body[0].items[0].item);
+            
+                            }else{
+                                res.send({"Error" : true});
+                            }
+                        })
                     })
-                })
-            }catch(error){
-                console.error(error);
-            }
-        }
-        requestHuboList(URL)
-        //예비후보자로 요청
-        // URL = `http://apis.data.go.kr/9760000/PofelcddInfoInqireService/${regInfo[1]}?sgId=${req.body.sgId}&sgTypecode=${req.body.sgType}&sdName=${encodeURI(req.body.region1)}&sggName=${encodeURI(req.body.region2)}&pageNo=1&numOfRows=1000&resultType=xml&serviceKey=9HokxV9%2B6g%2Fi1qrzeQ%2BKh5FGdduzfXSOFyjO%2F1QCPdw9LWgzeHsM1uQjYB8B7Y1VZP2v7RoNuq0xQiS%2Bos6HtA%3D%3D`
-        // requestHuboList(URL)
+                }
+            })
+        })
     }
 })
 
@@ -138,9 +133,9 @@ router.post('/getSggName', (req, res)=>{
     
     useXmlApiAxios(url)
     .then(data => { 
-        console.log(data);
+        console.log("선거구 xml 받아옴!")
         xml2js.parseString(data, (err, result)=>{
-
+            console.log("선거구 xml 파싱...");
             let totalLists = result.response.body[0].items[0].item //253개 선거구 리스트
 
             let sggLists = [];//선거구 이름 리스트(sggName)

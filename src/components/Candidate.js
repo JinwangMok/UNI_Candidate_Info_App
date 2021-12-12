@@ -34,11 +34,17 @@ function Candidate(props){
                 <section className="Candidate_mainHeader">
                     <div>
                         <h2>{props.huboInfos.name[0]}</h2>
-                        <p>{"기호 " + props.huboInfos.giho[0] + "번 "}</p>
+                        <p>
+                            {
+                                "giho" in props.huboInfos?
+                                "기호 " + props.huboInfos.giho[0] + "번 ":
+                                "예비 후보자"
+                            }
+                        </p>
                     </div>
                     <Link to={'/candidates'}>
                         <img src={ logo } alt="logo"/>
-                        <span>목록</span>
+                        <span>List</span>
                     </Link>
                 </section>
                 <section className="Candidate_subHeader">
@@ -137,10 +143,10 @@ function Candidate(props){
                         { newsUpdateTime }
                     </p>
                     {
-                        newsList.slice(0,10).map(news => {
+                        newsList.slice(0,30).map(news => {
                             return(
                                 <li key={news.link[0]} className="Candidate_huboArticle_news">
-                                    <a href={news.link[0]}>🗞{news.title[0]}</a>
+                                    <a href={news.link[0]} target="_blank">🗞{news.title[0]}</a>
                                 </li>
                             )
                         })

@@ -62,7 +62,7 @@ function Candidates(props){
                     <h2>{"후보자 목록"}</h2>
                     <Link to={'/'}>
                         <img src={ logo } alt="logo"/>
-                        <span>홈으로</span>
+                        <span>Home</span>
                     </Link>
                 </section>
                 <section className="Candidates_subHeader">
@@ -76,13 +76,13 @@ function Candidates(props){
             <ul className="Candidates_list">
                 {
                     props.huboList.map((item)=>{
-                        if(item.status[0] != '사퇴'){
+                        if(item.status[0] == '등록'){
                             return(
                                 <li key={item.huboid[0]} id={item.huboid[0]} onClick={selectHuboHandler} style={jdColorCode[item.jdName]?{backgroundColor : jdColorCode[item.jdName]}:{backgroundColor :"gray"}}>
                                     <Link to="/candidate">
                                         <div className="Candidates_list_name">
                                             <h5>
-                                                {"기호 " + item.giho[0] + "번"}
+                                                {"giho" in item?"기호 " + item.giho[0] + "번":"예비후보자"}
                                             </h5>
                                             <h3>
                                                 {item.name[0]}
