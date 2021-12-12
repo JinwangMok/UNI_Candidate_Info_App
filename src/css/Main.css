@@ -13,6 +13,9 @@
 }
 
 @media screen and (max-width : 768px) {
+    :root{
+        font-size: 13px;
+    }
     .Main{
         width: 100%;
     }
@@ -22,13 +25,30 @@
         display: flex;
         flex-direction: column;
     }
-    .show{
-        width: 80%;
+    .Candidates_list_name{
+        width: 4rem;
+        padding-right: 1rem;
+    }
+    .Candidates_list_name > h5{
+        font-size: 0.9rem;
+    }
+    .Candidates_list_name > h3{
+        width: 4rem;
+        font-size: 1.5rem;
+    }
+    .Candidates_list_info{
+        width: 100%;
+    }
+    .Candidates_list_info > h4{
         display: flex;
-        flex-direction: column;
-        padding: 1rem;
-        padding-top: 2.5rem;
-        margin-right: 1rem;
-        box-shadow: 5px 0px 10px gray;
+        justify-content: right;
+        align-items: center;
+        font-size: 1.3rem;
+    }
+    .Candidate_subHeader > h3{
+        font-size: 1.1rem;
+    }
+    .Candidate_subHeader > div > h4{
+        margin-left: 0.2rem;
     }
 }

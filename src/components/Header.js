@@ -1,9 +1,9 @@
 import React from "react";
-
+import titleLogo from "../img/title.png";
 function Header(){
     return(
         <header className="Header">
-            소중한표(.png)
+            <img src={titleLogo}/>
         </header>
     );
 }
