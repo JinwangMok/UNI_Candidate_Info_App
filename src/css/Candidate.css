@@ -15,11 +15,23 @@
     align-items: center;
 }
 
+.Candidate_mainHeader svg{
+    font-size: 2rem;
+}
+
 .Candidate_mainHeader h2{
     width: 100%;
     display: flex;
     justify-content: center;
     flex-grow: 1;
+    font-size: 2.6rem;
+    margin-bottom: 0;
+    letter-spacing: 0.8rem;
+}
+
+.Candidate_mainHeader h2 + p{
+    margin-top: 0.5rem;
+    letter-spacing: 0.8rem;
 }
 
 .Candidate_mainHeader a{
@@ -55,3 +67,88 @@
     margin-left: 1rem;
 }
 
+.Candidate_huboInfo{
+    margin-bottom: 2rem;
+}
+.Candidate_huboArticle > ul > h3,
+.Candidate_huboInfo > ul > h3{
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+}
+
+.Candidate_huboInfo_class{
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    margin-bottom: 0.3rem;
+}
+
+.Candidate_huboInfo_class::before{
+    content: "📌 ";
+}
+
+.Candidate_huboInfo_JD{
+    display: flex;
+}
+
+.Candidate_huboInfo_JD_color{
+    width: 1rem;
+    height: 1rem;
+    border-radius: 1rem;
+    margin-right: 0.3rem;
+}
+.Candidate_huboInfo_content{
+    margin-left: 1rem;
+    margin-bottom: 0.2rem;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.Candidate_huboInfo_content > ul{
+    margin-bottom: 2rem;
+}
+
+.Candidate_huboInfo_content > ul li{
+    margin-bottom: 0.2rem;
+}
+
+.Candidate_huboArticle span{
+    width: 100%;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: right;
+    color: gray;
+    margin-bottom: 2rem;;
+}
+
+.Candidate_huboArticle li{
+    margin-bottom: 0.5rem;
+}
+
+@keyframes rainbow {
+    0%{
+        color:red;
+    }
+    20%{
+        color: peru;
+    }
+    40%{
+        color: green;
+    }
+    60%{
+        color: blue;
+    }
+    80%{
+        color: purple;
+    }
+    100%{
+        color: red;
+    }
+}
+.Candidate_huboArticle li a:hover{
+    animation: 3s rainbow infinite;
+}
+
+.Candidate_huboArticle li a::before{
+    content : "🗞 ";
+}

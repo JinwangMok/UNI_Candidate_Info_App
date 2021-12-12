@@ -2,7 +2,6 @@
 @import "./css/Candidates.css";
 @import "./css/Candidate.css";
 @import "./css/Main.css";
-@import "./css/Nav.css";
 @import "./css/Home.css";
 
 .App{
@@ -25,4 +24,37 @@ a {
 
 a:hover {
   cursor: pointer;
+}
+
+.Error{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Error > span{
+  margin-top: 1rem;
+  font-size: 1.5rem;
+}
+
+.Error > div a{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.Error img{
+  width: 10rem;
+}
+.Error img:hover{
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  transform: scale(0.9);
+}
+.Error img + span{
+  margin-top: 1rem;
+  font-size: 1rem;
 }

@@ -30,6 +30,7 @@ function Home(props){
             props.setSearch("available");
         }else{
             props.setSearch("unavailable");
+            props.setSdNames(["정보를 가져오고 있습니다..."]);
             axios.post('/api/getSdName', pBody)
                 .then(response=>{
                     props.setSdNames(response.data);
@@ -44,6 +45,7 @@ function Home(props){
             sgId : props.sgId,
             sdName : e.target.value
         }
+        props.setSggNames(["정보를 가져오고 있습니다..."]);
         axios.post('/api/getSggName', pBody)
             .then(response=>{
                 props.setSggNames(response.data);

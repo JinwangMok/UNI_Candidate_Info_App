@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
     BrowserRouter as Router,
     Routes,
     Route
   } from "react-router-dom";
-import Nav from "./Nav";
 import Home from "./Home";
 import Candidates from "./Candidates";
 import Candidate from "./Candidate";
-import Party from "./Party";
 import sgIdData from "../data/sgIdData.json";
 
 function Main(){
@@ -26,10 +24,6 @@ function Main(){
     const [huboInfos, setHuboInfos] = useState({});
     const [huboPromises, setHuboPromises] = useState([]);
     const [huboNewsData, setHuboNewsData] = useState({});
-
-    // useEffect(()=>{
-
-    // }, [sgId])
 
     let props = {
         sgType : sgType,
@@ -65,13 +59,11 @@ function Main(){
     return(
         <Router>
             <main className="Main">
-                {/* <Nav /> */}
                 <section className="Contents">
                     <Routes>
                         <Route exact path="/" element={<Home {...props}/>} />
                         <Route path="/candidates" element={<Candidates {...props}/>} />
                         <Route path="/candidate" element={<Candidate {...props}/>} />
-                        <Route path="/party" element={<Party />} />
                     </Routes>
                 </section>
             </main>

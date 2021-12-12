@@ -11,12 +11,21 @@ const useXmlApiAxios = (url) => {
     return dataPromise;
 }
 
+router.get('/jdinfo/:sgId/:jdName', (req, res) => {
+    console.log(req.params.sgId);
+    console.log(req.params.jdName);
+
+    let URL = `http://apis.data.go.kr/9760000/PartyPlcInfoInqireService/getPartyPlcInfoInqire?serviceKey=9HokxV9%2B6g%2Fi1qrzeQ%2BKh5FGdduzfXSOFyjO%2F1QCPdw9LWgzeHsM1uQjYB8B7Y1VZP2v7RoNuq0xQiS%2Bos6HtA%3D%3D&pageNo=1&numOfRows=100&sgId=${req.params.sgId}&partyName=${encodeURI(req.params.jdName)}`;
+
+    console.log(URL);
+})
+
 router.get('/rss/:name', (req, res) => {
     console.log(req.params.name);
     
-    let url = `https://news.google.com/rss/search?q=${encodeURI(req.params.name)}&hl=ko&gl=KR`;
+    let URL = `https://news.google.com/rss/search?q=${encodeURI(req.params.name)}&hl=ko&gl=KR`;
 
-    useXmlApiAxios(url)
+    useXmlApiAxios(URL)
     .then(data => {
         xml2js.parseString(data, (err, result)=>{
             if(err){
@@ -35,11 +44,11 @@ router.get('/rss/:name', (req, res) => {
 router.post('/huboPromises', (req, res) => {
     console.log(req.body);
 
-    let url = `http://apis.data.go.kr/9760000/ElecPrmsInfoInqireService/getCnddtElecPrmsInfoInqire?pageNo=1&numOfRows=1000&sgId=${req.body.sgId}&sgTypecode=${req.body.sgType}&cnddtId=${req.body.huboId}&resultType=xml&serviceKey=9HokxV9%2B6g%2Fi1qrzeQ%2BKh5FGdduzfXSOFyjO%2F1QCPdw9LWgzeHsM1uQjYB8B7Y1VZP2v7RoNuq0xQiS%2Bos6HtA%3D%3D`
+    let URL = `http://apis.data.go.kr/9760000/ElecPrmsInfoInqireService/getCnddtElecPrmsInfoInqire?pageNo=1&numOfRows=1000&sgId=${req.body.sgId}&sgTypecode=${req.body.sgType}&cnddtId=${req.body.huboId}&resultType=xml&serviceKey=9HokxV9%2B6g%2Fi1qrzeQ%2BKh5FGdduzfXSOFyjO%2F1QCPdw9LWgzeHsM1uQjYB8B7Y1VZP2v7RoNuq0xQiS%2Bos6HtA%3D%3D`
 
-    console.log(url)
+    console.log(URL)
 
-    useXmlApiAxios(url)
+    useXmlApiAxios(URL)
     .then(data => {
         xml2js.parseString(data, (err, result)=>{
             if(err){
@@ -99,9 +108,9 @@ router.post('/sgCandidate', (req, res)=>{
 router.post('/getSdName', (req, res)=>{
     console.log(req.body);//{sgType: '1', sgId: '20220309'}
     
-    let url = `http://apis.data.go.kr/9760000/CommonCodeService/getCommonSggCodeList?sgId=${req.body.sgId}&sgTypecode=${req.body.sgType}&pageNo=1&numOfRows=5000&resultType=xml&serviceKey=9HokxV9%2B6g%2Fi1qrzeQ%2BKh5FGdduzfXSOFyjO%2F1QCPdw9LWgzeHsM1uQjYB8B7Y1VZP2v7RoNuq0xQiS%2Bos6HtA%3D%3D`;
+    let URL = `http://apis.data.go.kr/9760000/CommonCodeService/getCommonSggCodeList?sgId=${req.body.sgId}&sgTypecode=${req.body.sgType}&pageNo=1&numOfRows=5000&resultType=xml&serviceKey=9HokxV9%2B6g%2Fi1qrzeQ%2BKh5FGdduzfXSOFyjO%2F1QCPdw9LWgzeHsM1uQjYB8B7Y1VZP2v7RoNuq0xQiS%2Bos6HtA%3D%3D`;
     
-    useXmlApiAxios(url)
+    useXmlApiAxios(URL)
     .then(data => { 
         // console.log(data);
         xml2js.parseString(data, (err, result)=>{
@@ -129,9 +138,9 @@ router.post('/getSdName', (req, res)=>{
 router.post('/getSggName', (req, res)=>{
     console.log(req.body);//{ sgType: '2', sgId: '20200415', sdName: '부산광역시' }
     
-    let url = `http://apis.data.go.kr/9760000/CommonCodeService/getCommonSggCodeList?sgId=${req.body.sgId}&sgTypecode=${req.body.sgType}&pageNo=1&numOfRows=5000&resultType=xml&serviceKey=9HokxV9%2B6g%2Fi1qrzeQ%2BKh5FGdduzfXSOFyjO%2F1QCPdw9LWgzeHsM1uQjYB8B7Y1VZP2v7RoNuq0xQiS%2Bos6HtA%3D%3D`;
+    let URL = `http://apis.data.go.kr/9760000/CommonCodeService/getCommonSggCodeList?sgId=${req.body.sgId}&sgTypecode=${req.body.sgType}&pageNo=1&numOfRows=5000&resultType=xml&serviceKey=9HokxV9%2B6g%2Fi1qrzeQ%2BKh5FGdduzfXSOFyjO%2F1QCPdw9LWgzeHsM1uQjYB8B7Y1VZP2v7RoNuq0xQiS%2Bos6HtA%3D%3D`;
     
-    useXmlApiAxios(url)
+    useXmlApiAxios(URL)
     .then(data => { 
         console.log("선거구 xml 받아옴!")
         xml2js.parseString(data, (err, result)=>{

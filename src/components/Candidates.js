@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../img/Home_logo.png"
 import { FaLocationArrow } from "react-icons/fa";
@@ -28,7 +28,7 @@ function Candidates(props){
                 huboId : e.currentTarget.id
             }
 
-            props.setHuboPromises([]);//올바른 정보 전달을 위한 초기화
+            props.setHuboPromises([["", " 공약은 대통령, 도시자, 구∙시∙군의장, 교육감 선거에서만 확인 가능하며 지난 투표에서는 당선인의 공약만 열람 가능합니다.", ". .공약 정보를 가져오는 중입니다.", " "]])
 
             axios.post('/api/huboPromises', postBody)
             .then(response => {
@@ -54,8 +54,21 @@ function Candidates(props){
             props.setHuboPromises([["", " 공약은 대통령, 도시자, 구∙시∙군의장, 교육감 선거에서만 확인 가능하며 지난 투표에서는 당선인의 공약만 열람 가능합니다.", ". .죄송합니다. 공약을 열람할 수 없는 후보입니다.", " "]]);
         }
     }
-    
-    if(props.huboList.length == 0){
+    if(props.sgId == "" ||  props.sgType == "" || props.region1 == "" || props.region2 == ""){
+        return(
+            <section className="Error">
+                <span>죄송합니다.</span>
+                <span>데이터가 초기화되었거나, 잘못되었습니다.</span>
+                <span>아래의 홈버튼을 눌러, 홈에서 다시 요청해주세요.</span>
+                <div>
+                    <Link to={'/'}>
+                        <img src={ logo } alt="logo"/>
+                        <span>👆🏻클릭!</span>
+                    </Link>
+                </div>
+            </section>
+        )
+    }else if(props.huboList.length == 0){
         return(
             <section className="Candidates">
                 <header>
@@ -63,7 +76,7 @@ function Candidates(props){
                         <h2>{"후보자 목록"}</h2>
                         <Link to={'/'}>
                             <img src={ logo } alt="logo"/>
-                            <span>Home</span>
+                            <span>홈으로</span>
                         </Link>
                     </section>
                     <section className="Candidates_subHeader">
@@ -90,7 +103,7 @@ function Candidates(props){
                         <h2>{"후보자 목록"}</h2>
                         <Link to={'/'}>
                             <img src={ logo } alt="logo"/>
-                            <span>Home</span>
+                            <span>홈으로</span>
                         </Link>
                     </section>
                     <section className="Candidates_subHeader">
