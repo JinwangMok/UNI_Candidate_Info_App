@@ -7,32 +7,53 @@ import jdColorCode from "../data/jdColorCode.json";
 //import axios from "axios";
 
 function Candidates(props){
-    let postBody = {};
-    if(props.sgType == '1'){
-        postBody = {
-            sgId : props.sgId,
-            sgType : props.sgType,
-            region1 : "전국",
-            region2 : "대한민국"
-        }
-    }else{
-        postBody = {
-            sgId : props.sgId,
-            sgType : props.sgType,
-            region1 : props.region1,
-            region2 : props.region2
+
+    const selectHuboHandler = (e) => {
+        let postBody = {};
+
+        props.setHuboId(e.currentTarget.id);
+
+        props.huboList.map((hubo)=>{
+            if(hubo.huboid == e.currentTarget.id){
+                props.setHuboInfos(hubo);
+            }
+        })
+
+        if(props.sgType == '1' || props.sgType == '3'||
+        props.sgType == '4' || props.sgType == '11'){ // 이외의 선거타입은 공약서를 제출하지 않음.
+            
+            postBody = {
+                sgId : props.sgId,
+                sgType : props.sgType,
+                huboId : e.currentTarget.id
+            }
+
+            props.setHuboPromises([]);//올바른 정보 전달을 위한 초기화
+
+            axios.post('/api/huboPromises', postBody)
+            .then(response => {
+
+                if("Error" in response.data){
+                    props.setHuboPromises([["", " 공약은 대통령, 도시자, 구∙시∙군의장, 교육감 선거에서만 확인 가능하며 지난 투표에서는 당선인의 공약만 열람 가능합니다.", ". .죄송합니다. 공약을 열람할 수 없는 후보입니다.", " "]])
+                }else{
+                    let preSet = Object.values(response.data).slice(11);
+                    let forSet = new Array();
+                    for(let i = 0; i < preSet.length; i++){
+                        if(i % 4 == 0){
+                            let temp = preSet.slice(i, i+4);
+                            forSet.push(temp);
+                        }
+                    }
+                    props.setHuboPromises(forSet);
+                    // console.log("후보 공약 요청 성공");
+                    // console.log(forSet);
+                }
+            })
+            .catch(err => console.log(err))
+        }else{
+            props.setHuboPromises([["", " 공약은 대통령, 도시자, 구∙시∙군의장, 교육감 선거에서만 확인 가능하며 지난 투표에서는 당선인의 공약만 열람 가능합니다.", ". .죄송합니다. 공약을 열람할 수 없는 후보입니다.", " "]]);
         }
     }
-
-    useEffect(()=>{
-        console.log(postBody);
-        axios.post('/api/sgCandidate', postBody)
-            .then(response => {
-                props.setHuboList(response.data);
-            })
-    },[])
-
-
 
     return(
         <section className="Candidates">
@@ -57,7 +78,7 @@ function Candidates(props){
                     props.huboList.map((item)=>{
                         if(item.status[0] != '사퇴'){
                             return(
-                                <li key={item.huboid[0]} style={jdColorCode[item.jdName]?{backgroundColor : jdColorCode[item.jdName]}:{backgroundColor :"gray"}}>
+                                <li key={item.huboid[0]} id={item.huboid[0]} onClick={selectHuboHandler} style={jdColorCode[item.jdName]?{backgroundColor : jdColorCode[item.jdName]}:{backgroundColor :"gray"}}>
                                     <Link to="/candidate">
                                         <div className="Candidates_list_name">
                                             <h5>

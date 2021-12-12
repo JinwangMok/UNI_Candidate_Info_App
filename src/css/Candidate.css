@@ -1,0 +1,58 @@
+.Candidate{
+    width: 100%;
+    margin-left: 3rem;
+}
+
+.Candidate header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.Candidate_mainHeader{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Candidate_mainHeader h2{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.Candidate_mainHeader a{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.Candidate_mainHeader a span{
+    font-size: 0.7rem;
+}
+
+.Candidate_mainHeader img{
+    width: 2rem;
+    margin-bottom: 0.3rem;
+}
+
+.Candidate_subHeader{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.Candidate_subHeader div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: gray;
+}
+
+.Candidate_subHeader div h4 {
+    margin-left: 1rem;
+}
+

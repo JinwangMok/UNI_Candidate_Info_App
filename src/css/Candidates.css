@@ -77,7 +77,7 @@
 }
 
 .Candidates_list li:hover{
-    transform: scale(1.02);
+    transform: translateX(-1rem);
 }
 .Candidates_list_name{
     display: flex;

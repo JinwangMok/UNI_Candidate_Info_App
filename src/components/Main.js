@@ -9,6 +9,7 @@ import Home from "./Home";
 import Candidates from "./Candidates";
 import Candidate from "./Candidate";
 import Party from "./Party";
+import sgIdData from "../data/sgIdData.json";
 
 function Main(){
     const [sgType, setSgType] = useState({});
@@ -18,10 +19,13 @@ function Main(){
     const [region2, setRegion2] = useState("");
     const [sdNames, setSdNames] = useState([]);
     const [sggNames, setSggNames] = useState([]);
-    const [sgIdList, setSgIdList] = useState([]);
+    const [sgIdList, setSgIdList] = useState(sgIdData["list"]);
     const [search, setSearch] = useState("unavailable");
     const [huboList, setHuboList] = useState([]);
     const [huboId, setHuboId] = useState("")
+    const [huboInfos, setHuboInfos] = useState({});
+    const [huboPromises, setHuboPromises] = useState([]);
+    const [huboNewsData, setHuboNewsData] = useState({});
 
     // useEffect(()=>{
 
@@ -49,7 +53,13 @@ function Main(){
         huboList : huboList,
         setHuboList : setHuboList,
         huboId : huboId,
-        setHuboId : setHuboId
+        setHuboId : setHuboId,
+        huboInfos : huboInfos,
+        setHuboInfos : setHuboInfos,
+        huboPromises : huboPromises,
+        setHuboPromises : setHuboPromises,
+        huboNewsData : huboNewsData,
+        setHuboNewsData : setHuboNewsData
     }
 
     return(

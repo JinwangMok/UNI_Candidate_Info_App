@@ -3,11 +3,29 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../img/Home_logo.png"
 import sgCodeData from "../data/sgCodeData.json";
-import sgIdData from "../data/sgIdData.json";
+
 import axios from "axios";
 
 
 function Home(props){
+
+    const changeSgTypeHandler = (e) => props.setSgType(Object.keys(sgCodeData).find(key=>sgCodeData[key]==e.target.value));
+
+    const changeSgIdHandler = (e) => {//sgId가 결정되어야 선거구를 찾을 수 있음.
+        props.setSgId(e.target.value.slice(1, 9));
+        let pBody = {
+            sgType : props.sgType,
+            sgId : e.target.value.slice(1, 9)
+        }
+        props.setSgName(e.target.value.slice(11));
+        console.log(e.target.value.slice(1, 9))
+        console.log(e.target.value.slice(11));
+
+        axios.post('/api/getSdName', pBody)
+            .then(response=>{
+                props.setSdNames(response.data);
+            });
+    }
 
     const changeRegion1OptionHandler = (e) =>{
         props.setRegion1(e.target.value);
@@ -22,26 +40,42 @@ function Home(props){
                 console.log(response.data);
         });
     }
-    useEffect(() => props.setSgIdList(sgIdData["list"].reverse()), []);
-    
-    const changeSgTypeHandler = (e) => props.setSgType(Object.keys(sgCodeData).find(key=>sgCodeData[key]==e.target.value));
 
     const changeRegion2OptionHandler = (e) => props.setRegion2(e.target.value);
-
-    const changeSgIdHandler = (e) => {//sgId가 결정되어야 선거구를 찾을 수 있음.
-        props.setSgId(e.target.value.slice(1, 9));
-        let pBody = {
-            sgType : props.sgType,
-            sgId : e.target.value.slice(1, 9)
-        }
-        props.setSgName(e.target.value.slice(11));
-        console.log(e.target.value.slice(1, 9))
-        console.log(e.target.value.slice(11));
+    
+    const searchListHandler = () =>{
+        props.setHuboList([]);
         
-        axios.post('/api/getSdName', pBody)
-            .then(response=>{
-                props.setSdNames(response.data);
-            });
+        let postBody = {};
+
+        if(props.sgType == '1'){
+            props.setRegion1("전국");
+            props.setRegion2("대한민국");
+
+            postBody = {
+                sgId : props.sgId,
+                sgType : props.sgType,
+                region1 : "전국",
+                region2 : "대한민국"
+            }
+        }else{
+            postBody = {
+                sgId : props.sgId,
+                sgType : props.sgType,
+                region1 : props.region1,
+                region2 : props.region2
+            }
+        }
+        console.log(postBody);
+
+        axios.post('/api/sgCandidate', postBody)
+            .then(response => {
+                console.log(response);
+                props.setHuboList(response.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
     useEffect(() => {
@@ -54,7 +88,7 @@ function Home(props){
             if(props.sgId && props.region1 && props.region2) props.setSearch("available");
             else props.setSearch("unavailable");
         }
-    }, [props.sgType, props.sgId, props.region1, props.region2]);
+    });
 
     return(
         <section className="Home">
@@ -121,7 +155,7 @@ function Home(props){
                     </select>
                 </div>
             </section>
-            <button className={props.search}>
+            <button className={props.search} onClick={searchListHandler}>
                 <Link to={"/candidates"}>
                     <img src={ logo } alt="logo"/>
                 </Link>
