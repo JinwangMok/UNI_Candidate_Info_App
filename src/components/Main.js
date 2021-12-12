@@ -65,7 +65,7 @@ function Main(){
     return(
         <Router>
             <main className="Main">
-                <Nav />
+                {/* <Nav /> */}
                 <section className="Contents">
                     <Routes>
                         <Route exact path="/" element={<Home {...props}/>} />

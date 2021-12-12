@@ -9,7 +9,15 @@ import axios from "axios";
 
 function Home(props){
 
-    const changeSgTypeHandler = (e) => props.setSgType(Object.keys(sgCodeData).find(key=>sgCodeData[key]==e.target.value));
+    const changeSgTypeHandler = (e) => {
+        props.setSdNames([]);
+        props.setSggNames([]);
+        props.setSgType(Object.keys(sgCodeData).find(key=>sgCodeData[key]==e.target.value))
+        if(e.target.value != "대통령 선거"){
+            props.setSearch("unavailable");
+            props.setSgName("");
+        }
+    }
 
     const changeSgIdHandler = (e) => {//sgId가 결정되어야 선거구를 찾을 수 있음.
         props.setSgId(e.target.value.slice(1, 9));
@@ -18,13 +26,15 @@ function Home(props){
             sgId : e.target.value.slice(1, 9)
         }
         props.setSgName(e.target.value.slice(11));
-        console.log(e.target.value.slice(1, 9))
-        console.log(e.target.value.slice(11));
-
-        axios.post('/api/getSdName', pBody)
-            .then(response=>{
-                props.setSdNames(response.data);
+        if(e.target.value.slice(11,17)=="대통령선거"){
+            props.setSearch("available");
+        }else{
+            props.setSearch("unavailable");
+            axios.post('/api/getSdName', pBody)
+                .then(response=>{
+                    props.setSdNames(response.data);
             });
+        }
     }
 
     const changeRegion1OptionHandler = (e) =>{
@@ -41,7 +51,14 @@ function Home(props){
         });
     }
 
-    const changeRegion2OptionHandler = (e) => props.setRegion2(e.target.value);
+    const changeRegion2OptionHandler = (e) => {
+        props.setRegion2(e.target.value)
+        if(e.target.value == ""){
+            props.setSearch("unavailable");
+        }else{
+            props.setSearch("available");
+        }
+    }
     
     const searchListHandler = () =>{
         props.setHuboList([]);
@@ -79,16 +96,9 @@ function Home(props){
     }
 
     useEffect(() => {
-        if(!props.sgType){
-            props.setSearch("unavailable");
-        }else if(props.sgType == "1"){
-            if(props.sgId) props.setSearch("available");
-            else props.setSearch("unavailable");
-        }else{
-            if(props.sgId && props.region1 && props.region2) props.setSearch("available");
-            else props.setSearch("unavailable");
-        }
-    });
+        props.setSearch("unavailable");
+        props.setSgName("");
+    }, []);
 
     return(
         <section className="Home">
@@ -126,7 +136,7 @@ function Home(props){
                     }
                 </select>
             </section>
-            <section className="Home_regions">
+            <section className={props.sgName == "대통령선거"?"Home_regions_unavailable":"Home_regions"}>
                 <span>선거구</span>
                 <div className="Home_region1">
                     <select onChange={changeRegion1OptionHandler}>

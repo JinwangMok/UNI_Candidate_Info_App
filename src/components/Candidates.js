@@ -54,54 +54,83 @@ function Candidates(props){
             props.setHuboPromises([["", " 공약은 대통령, 도시자, 구∙시∙군의장, 교육감 선거에서만 확인 가능하며 지난 투표에서는 당선인의 공약만 열람 가능합니다.", ". .죄송합니다. 공약을 열람할 수 없는 후보입니다.", " "]]);
         }
     }
-
-    return(
-        <section className="Candidates">
-            <header>
-                <section className="Candidates_mainHeader">
-                    <h2>{"후보자 목록"}</h2>
-                    <Link to={'/'}>
-                        <img src={ logo } alt="logo"/>
-                        <span>Home</span>
-                    </Link>
-                </section>
-                <section className="Candidates_subHeader">
-                    <h3>{"[" + props.sgId + "] " + props.sgName}</h3>
-                    <div>
-                        <FaLocationArrow />
-                        <h4>{props.region2}</h4>
+    
+    if(props.huboList.length == 0){
+        return(
+            <section className="Candidates">
+                <header>
+                    <section className="Candidates_mainHeader">
+                        <h2>{"후보자 목록"}</h2>
+                        <Link to={'/'}>
+                            <img src={ logo } alt="logo"/>
+                            <span>Home</span>
+                        </Link>
+                    </section>
+                    <section className="Candidates_subHeader">
+                        <h3>{"[" + props.sgId + "] " + props.sgName}</h3>
+                        <div>
+                            <FaLocationArrow />
+                            <h4>{props.region2}</h4>
+                        </div>
+                    </section>
+                </header>
+                <div className="Candidates_loading">
+                    <span>정보를 가져오는 중입니다...</span>
+                    <div className="Candidates_loading_dots">
+                        <div></div>
                     </div>
-                </section>
-            </header>
-            <ul className="Candidates_list">
-                {
-                    props.huboList.map((item)=>{
-                        if(item.status[0] == '등록'){
-                            return(
-                                <li key={item.huboid[0]} id={item.huboid[0]} onClick={selectHuboHandler} style={jdColorCode[item.jdName]?{backgroundColor : jdColorCode[item.jdName]}:{backgroundColor :"gray"}}>
-                                    <Link to="/candidate">
-                                        <div className="Candidates_list_name">
-                                            <h5>
-                                                {"giho" in item?"기호 " + item.giho[0] + "번":"예비후보자"}
-                                            </h5>
-                                            <h3>
-                                                {item.name[0]}
-                                            </h3>
-                                        </div>
-                                        <div className="Candidates_list_info">
-                                            <h4>
-                                                {item.jdName[0]}
-                                            </h4>
-                                        </div>
-                                    </Link>
-                                </li>
-                            )
-                        }
-                    })
-                }
-            </ul>
-        </section>
-    )
+                </div>
+            </section>
+        )
+    }else{
+        return(
+            <section className="Candidates">
+                <header>
+                    <section className="Candidates_mainHeader">
+                        <h2>{"후보자 목록"}</h2>
+                        <Link to={'/'}>
+                            <img src={ logo } alt="logo"/>
+                            <span>Home</span>
+                        </Link>
+                    </section>
+                    <section className="Candidates_subHeader">
+                        <h3>{"[" + props.sgId + "] " + props.sgName}</h3>
+                        <div>
+                            <FaLocationArrow />
+                            <h4>{props.region2}</h4>
+                        </div>
+                    </section>
+                </header>
+                <ul className="Candidates_list">
+                    {
+                        props.huboList.map((item)=>{
+                            if(item.status[0] == '등록'){
+                                return(
+                                    <li key={item.huboid[0]} id={item.huboid[0]} onClick={selectHuboHandler} style={jdColorCode[item.jdName]?{backgroundColor : jdColorCode[item.jdName]}:{backgroundColor :"gray"}}>
+                                        <Link to="/candidate">
+                                            <div className="Candidates_list_name">
+                                                <h5>
+                                                    {"giho" in item?"기호 " + item.giho[0] + "번":"예비후보자"}
+                                                </h5>
+                                                <h3>
+                                                    {item.name[0]}
+                                                </h3>
+                                            </div>
+                                            <div className="Candidates_list_info">
+                                                <h4>
+                                                    {item.jdName[0]}
+                                                </h4>
+                                            </div>
+                                        </Link>
+                                    </li>
+                                )
+                            }
+                        })
+                    }
+                </ul>
+            </section>
+        )
+    }
 }
 
 export default Candidates;
