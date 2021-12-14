@@ -31,6 +31,6 @@
 >>>> server.js
 >>>> routes/
 -->
-### [📌Here is the Link](www.jinwangmok.com) 
+### [📌Here is the Link](http://www.jinwangmok.com) 
 please enjoying it!
 (of course, it's korean. And it could be possible to can NOT access in the future due to my other projects.)
