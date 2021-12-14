@@ -2,7 +2,7 @@
 
 ### Description
 > 📚 Stacks
->>- ReactJS(React Hooks)
+>>- ReactJS(with Hooks)
 >>- Express.js
 >>- Naver Cloud Platform server
 >>- Open APIs(www.data.go.kr)
