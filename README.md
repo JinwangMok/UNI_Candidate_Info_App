@@ -20,7 +20,7 @@
 >>- [중앙선거관리위원회 정당정책정보](https://www.data.go.kr/tcs/dss/selectApiDataDetailView.do?publicDataPk=15040588)
 >>- [중앙선거관리위원회 코드정보](https://www.data.go.kr/tcs/dss/selectApiDataDetailView.do?publicDataPk=15000897)
 >>- [Google news Rss](https://news.google.com/rss)
->
+<!--
 > 🧱 `Structure of this project`
 >> app/
 >>> app.js `this one is real server. excute this with nohup command for background precessing`
@@ -30,7 +30,7 @@
 >>> servers/ `API servers. Because of CORS, I can't use APIs in FE directly. So, this one make it happen.`
 >>>> server.js
 >>>> routes/
-
-### `[📌Here is the Link](http://www.jinwangmok.com)`
+-->
+### [`📌Here is the Link`](http://www.jinwangmok.com)
 please enjoying it!
 (of course, it's korean. And it could be possible to can NOT access in the future due to my other projects.)
