@@ -17,11 +17,13 @@
 .Candidate_JundangInfo > div{
     width: 100%;
     display: flex;
-    justify-content: right;
+    justify-content: center;
     margin-top: 2rem;
 }
 
 .Candidate_JundangInfo_showBtn > button{
+    font-size: 1rem;
+    font-weight: 500;
     padding: 0.8rem 1rem;
     border-radius: 1rem;
     transition: 0.5s ease;

@@ -10,7 +10,7 @@ import Candidate from "./Candidate";
 import sgIdData from "../data/sgIdData.json";
 
 function Main(){
-    const [sgType, setSgType] = useState({});
+    const [sgType, setSgType] = useState("");
     const [sgName, setSgName] = useState("");
     const [sgId, setSgId] = useState("");
     const [region1, setRegion1] = useState("");

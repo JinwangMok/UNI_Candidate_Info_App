@@ -25,6 +25,7 @@ function Home(props){
             sgType : props.sgType,
             sgId : e.target.value.slice(1, 9)
         }
+        console.log(pBody);
         props.setSgName(e.target.value.slice(11));
         if(e.target.value.slice(11,17)=="대통령선거"){
             props.setSearch("available");
@@ -96,8 +97,33 @@ function Home(props){
                 console.log(err);
             })
     }
+    const setGuidePrinter = () => {
+        let guide;
+        if(props.search == "available"){
+            return(
+                <div className="Home_guide">
+                    <div className="Home_guideEmoji">👆🏻</div>
+                    <div className="Home_guideText">위의 버튼을 눌러 검색하실 수 있습니다.</div>
+                </div>
+            )
+        }else{
+            if(props.sgType == ""){
+                guide = "선거 분류를 선택해주세요."
+            }else if(props.sgName == ""){
+                guide = "선거 날짜와 세부분류를 선택해주세요."
+            }else{
+                guide = "선거구를 선택해주세요."
+            }
+        } 
+        return(
+            <div className="Home_guide">
+                {guide}
+            </div>
+        )
+    }
 
     useEffect(() => {
+        props.setSgType("");
         props.setSearch("unavailable");
         props.setSgName("");
     }, []);
@@ -110,7 +136,7 @@ function Home(props){
             <section className="Home_voteClass">
                 <span>선거분류</span>
                 <select onChange={changeSgTypeHandler}>
-                    <option selected="selected"></option>
+                    <option value="" disabled selected="selected">===선거분류===</option>
                     {
                         Object.values(sgCodeData).map((value)=>{
                             return(
@@ -124,7 +150,7 @@ function Home(props){
             </section>
             <section className="Home_voteId">
                 <select onChange={changeSgIdHandler}>
-                    <option selected="selected"></option>
+                    <option value="" disabled selected="selected">===날짜 및 세부분류===</option>
                     {
                         props.sgIdList.map((item)=>{
                             if(item["sgTypecode"] == props.sgType){
@@ -142,7 +168,7 @@ function Home(props){
                 <span>선거구</span>
                 <div className="Home_region1">
                     <select onChange={changeRegion1OptionHandler}>
-                        <option selected="selected"></option>
+                        <option value="" disabled selected="selected">===시・도구분===</option>
                         { 
                             props.sdNames.map((item) =>{
                                 return(
@@ -156,7 +182,7 @@ function Home(props){
                 </div>
                 <div className="Home_region2">
                     <select onChange={changeRegion2OptionHandler}>
-                        <option selected="selected"></option>
+                        <option value="" disabled selected="selected">===선거구===</option>
                         { props.sggNames.map((item) => {
                             return(
                                 <option value={ item }>
@@ -172,6 +198,7 @@ function Home(props){
                     <img src={ logo } alt="logo"/>
                 </Link>
             </button>
+            {setGuidePrinter()}
         </section>
     )
 }

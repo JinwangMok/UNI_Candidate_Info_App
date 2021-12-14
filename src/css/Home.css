@@ -136,4 +136,25 @@
 .Home_hide{
     display: none;
 }
-
+@keyframes guide {
+    0%{
+        transform: scale(1);
+    }
+    5%{
+        transform: scale(1.1);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+.Home_guide{
+    animation: 5s guide infinite;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+}
+.Home_guideEmoji{
+    font-size: 2.5rem;
+}

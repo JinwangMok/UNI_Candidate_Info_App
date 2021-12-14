@@ -69,7 +69,7 @@ function Candidate_JundangInfo(props){
         return(
             <section className="Candidate_JundangInfo">
                 <div className="Candidate_JundangInfo_showBtn" onClick={JundangInfoHandler}>
-                    <button>정당 정책 정보 열람하기</button>
+                    <button>🔍 정당 정책 정보 열람</button>
                 </div>
             </section>
         )
